@@ -1,0 +1,39 @@
+*{ box-sizing:border-box; font-family: Arial, sans-serif; }
+body{ background:#f2f2f2; display:flex; justify-content:center; padding:24px; }
+.card{
+  width:420px; background:#fff; border:4px solid #111; padding:18px; border-radius:8px;
+}
+.top{ display:flex; gap:12px; justify-content:space-between; align-items:center; }
+.inline{ margin:0; }
+.btn-primary{
+  background:#0aa3e3; color:#000; border:0; padding:16px 18px; border-radius:10px;
+  font-weight:800; cursor:pointer; width:230px;
+}
+.btn-xlsx{
+  background:#2ecc71; color:#000; text-decoration:none; padding:16px 18px; border-radius:8px;
+  font-weight:800; display:inline-block;
+}
+.btn-xlsx.disabled{ opacity:.4; pointer-events:none; }
+
+.title{ text-align:center; margin:18px 0 12px; letter-spacing:.5px; }
+.row{ display:flex; gap:10px; align-items:center; justify-content:center; }
+.input{
+  width:240px; padding:12px; border:3px solid #111; font-size:18px; font-weight:700;
+}
+.btn-ver{
+  background:#1db954; border:0; padding:12px 14px; border-radius:10px; font-weight:800; cursor:pointer;
+}
+.results{ margin-top:18px; display:flex; flex-direction:column; gap:12px; }
+.box{
+  border:3px solid #111; border-radius:14px; padding:12px; text-align:center;
+}
+.label{ font-weight:800; }
+.date{ color:#444; margin-top:4px; }
+.value{ font-size:28px; font-weight:900; margin-top:6px; }
+.muted{ color:#666; text-align:center; }
+
+.split{ display:flex; gap:12px; }
+.col{ flex:1; }
+.h4{ margin:6px 0 10px; text-align:center; font-weight:900; }
+.center{ text-align:center; }
+.muted2{ color:#666; font-size:12px; margin-top:6px; }

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pronóstico</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <form method="post" action="/run" class="inline">
+        <input type="hidden" name="h_future" value="3">
+        <button class="btn-primary" type="submit">PREDICCIÓN</button>
+      </form>
+
+      <a class="btn-xlsx {{ '' if has_result else 'disabled' }}" href="{{ '/download.xlsx' if has_result else '#' }}">
+        XLSX
+      </a>
+    </div>
+
+    <h3 class="title">CONSULTAR POR CÓDIGO</h3>
+
+    <form method="get" action="/" class="row">
+      <input class="input" name="codigo" placeholder="1000020003" value="{{ codigo }}">
+      <button class="btn-ver" type="submit">ver</button>
+    </form>
+
+    <div class="results">
+
+      {% if codigo and has_result %}
+        <div class="split">
+          <div class="col">
+            <h4 class="h4">LOCAL</h4>
+            {% if pred_local %}
+              {% for r in pred_local %}
+                <div class="box">
+                  <div class="date">{{ r["mes"].strftime("%Y-%m") if r["mes"] else r["mes"] }}</div>
+                  <div class="value">{{ "%.0f"|format(r["yhat"]) }}</div>
+                  <div class="muted2">{{ r["modelo"] }} · {{ r["segmento"] }}</div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="muted">Sin datos LOCAL para este código.</p>
+            {% endif %}
+          </div>
+
+          <div class="col">
+            <h4 class="h4">EXPO</h4>
+            {% if pred_expo %}
+              {% for r in pred_expo %}
+                <div class="box">
+                  <div class="date">{{ r["mes"].strftime("%Y-%m") if r["mes"] else r["mes"] }}</div>
+                  <div class="value">{{ "%.0f"|format(r["yhat"]) }}</div>
+                  <div class="muted2">{{ r["modelo"] }} · {{ r["segmento"] }}</div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="muted">Sin datos EXPO para este código.</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <hr style="margin:16px 0;">
+
+        <h4 class="h4 center">TOTAL (LOCAL + EXPO)</h4>
+        {% if pred_total %}
+          {% for r in pred_total %}
+            <div class="box">
+              <div class="date">{{ r["mes"].strftime("%Y-%m") if r["mes"] else r["mes"] }}</div>
+              <div class="value">{{ "%.0f"|format(r["yhat_total"]) }}</div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="muted">No hay total para este código.</p>
+        {% endif %}
+
+      {% else %}
+        <p class="muted">Ejecuta <b>PREDICCIÓN</b> para generar resultados.</p>
+      {% endif %}
+
+    </div>
+
+  </div>
+</body>
+</html>
